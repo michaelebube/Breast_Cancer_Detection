@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Detection System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+                <h1>BreastCare AI</h1>
+            </div>
+            <p class="subtitle">Advanced Breast Cancer Risk Assessment</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Information Panel -->
+            <section class="info-panel">
+                <div class="info-card">
+                    <div class="info-icon">ℹ️</div>
+                    <div class="info-content">
+                        <h3>Important Disclaimer</h3>
+                        <p>This tool provides a preliminary risk assessment based on reported symptoms. 
+                           It is <strong>NOT</strong> a substitute for professional medical diagnosis. 
+                           Always consult a healthcare provider for proper evaluation and diagnosis.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assessment Form -->
+            <section class="assessment-form">
+                <h2>📋 Symptom Assessment Form</h2>
+                <form id="predictionForm">
+                    <!-- Physical Characteristics -->
+                    <div class="form-section">
+                        <h3>Physical Characteristics</h3>
+                        
+                        <!-- Lump Size -->
+                        <div class="form-group">
+                            <label for="lumpSize">
+                                Lump Size (cm)
+                                <span class="tooltip" data-tooltip="Approximate diameter of the detected lump. Measure across the widest point.">?</span>
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" id="lumpSize" name="lumpSize" min="0.1" max="10" step="0.1" value="1.5">
+                                <div class="slider-labels">
+                                    <span>0.1 cm</span>
+                                    <span class="slider-value" id="lumpSizeValue">1.5 cm</span>
+                                    <span>10 cm</span>
+                                </div>
+                            </div>
+                            <p class="helper-text">Small lumps (&lt;2cm) are often benign. Larger lumps require more attention.</p>
+                        </div>
+
+                        <!-- Lump Shape -->
+                        <div class="form-group">
+                            <label for="lumpShape">
+                                Lump Shape
+                                <span class="tooltip" data-tooltip="Regular shapes are typically round or oval. Irregular shapes have uneven borders.">?</span>
+                            </label>
+                            <div class="select-wrapper">
+                                <select id="lumpShape" name="lumpShape" required>
+                                    <option value="">Select shape...</option>
+                                    <option value="regular">Regular (Round/Oval)</option>
+                                    <option value="irregular">Irregular (Uneven borders)</option>
+                                </select>
+                            </div>
+                            <p class="helper-text">Regular, well-defined shapes are more commonly associated with benign growths.</p>
+                        </div>
+
+                        <!-- Lump Texture -->
+                        <div class="form-group">
+                            <label for="lumpTexture">
+                                Lump Texture
+                                <span class="tooltip" data-tooltip="Describes how the surface of the lump feels during examination.">?</span>
+                            </label>
+                            <div class="select-wrapper">
+                                <select id="lumpTexture" name="lumpTexture" required>
+                                    <option value="">Select texture...</option>
+                                    <option value="smooth">Smooth</option>
+                                    <option value="rough">Rough/Bumpy</option>
+                                </select>
+                            </div>
+                            <p class="helper-text">Smooth textures are more often seen in benign conditions.</p>
+                        </div>
+
+                        <!-- Lump Hardness -->
+                        <div class="form-group">
+                            <label for="lumpHardness">
+                                Lump Hardness
+                                <span class="tooltip" data-tooltip="How firm the lump feels. Softer lumps are often fluid-filled cysts.">?</span>
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" id="lumpHardness" name="lumpHardness" min="0" max="100" step="1" value="50">
+                                <div class="slider-labels">
+                                    <span>Soft</span>
+                                    <span class="slider-value" id="lumpHardnessValue">50%</span>
+                                    <span>Hard</span>
+                                </div>
+                            </div>
+                            <p class="helper-text">Very hard, fixed lumps require immediate medical attention.</p>
+                        </div>
+
+                        <!-- Growth Rate -->
+                        <div class="form-group">
+                            <label for="growthRate">
+                                Growth Rate
+                                <span class="tooltip" data-tooltip="How quickly the lump has grown since first noticed.">?</span>
+                            </label>
+                            <div class="select-wrapper">
+                                <select id="growthRate" name="growthRate" required>
+                                    <option value="">Select growth rate...</option>
+                                    <option value="slow">Slow (months/stable)</option>
+                                    <option value="fast">Fast (weeks)</option>
+                                </select>
+                            </div>
+                            <p class="helper-text">Rapid growth may indicate more aggressive conditions.</p>
+                        </div>
+                    </div>
+
+                    <!-- Associated Symptoms -->
+                    <div class="form-section">
+                        <h3>Associated Symptoms</h3>
+                        
+                        <!-- Pain Present -->
+                        <div class="form-group toggle-group">
+                            <div class="toggle-label">
+                                <label for="painPresent">
+                                    Pain Present
+                                    <span class="tooltip" data-tooltip="Persistent pain in the breast or around the lump area.">?</span>
+                                </label>
+                                <p class="helper-text">Note: Most breast cancers are painless initially.</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="painPresent" name="painPresent">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-text">No</span>
+                            </label>
+                        </div>
+
+                        <!-- Skin Changes -->
+                        <div class="form-group toggle-group">
+                            <div class="toggle-label">
+                                <label for="skinChanges">
+                                    Skin Changes
+                                    <span class="tooltip" data-tooltip="Includes dimpling, puckering, redness, or 'orange peel' texture on breast skin.">?</span>
+                                </label>
+                                <p class="helper-text">Visible changes to breast skin can be significant.</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="skinChanges" name="skinChanges">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-text">No</span>
+                            </label>
+                        </div>
+
+                        <!-- Nipple Discharge -->
+                        <div class="form-group toggle-group">
+                            <div class="toggle-label">
+                                <label for="nippleDischarge">
+                                    Nipple Discharge
+                                    <span class="tooltip" data-tooltip="Unexpected fluid from the nipple, especially if bloody or clear.">?</span>
+                                </label>
+                                <p class="helper-text">Spontaneous discharge (not from squeezing) should be evaluated.</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="nippleDischarge" name="nippleDischarge">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-text">No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <h3>Personal Information</h3>
+                        
+                        <!-- Family History -->
+                        <div class="form-group toggle-group">
+                            <div class="toggle-label">
+                                <label for="familyHistory">
+                                    Family History of Breast Cancer
+                                    <span class="tooltip" data-tooltip="First-degree relatives (mother, sister, daughter) with breast cancer.">?</span>
+                                </label>
+                                <p class="helper-text">Family history can increase risk but doesn't guarantee disease.</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="familyHistory" name="familyHistory">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-text">No</span>
+                            </label>
+                        </div>
+
+                        <!-- Patient Age -->
+                        <div class="form-group">
+                            <label for="patientAge">
+                                Patient Age
+                                <span class="tooltip" data-tooltip="Age is a factor in breast cancer risk assessment.">?</span>
+                            </label>
+                            <input type="number" id="patientAge" name="patientAge" min="18" max="120" placeholder="Enter age" required>
+                            <p class="helper-text">Risk generally increases with age, especially after 50.</p>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="submitBtn">
+                            <span class="btn-text">Analyze Risk</span>
+                            <span class="btn-loader" style="display: none;">
+                                <svg class="spinner" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4"></circle>
+                                </svg>
+                            </span>
+                        </button>
+                        <button type="reset" class="btn-secondary">Clear Form</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Results Panel -->
+            <section class="results-panel" id="resultsPanel" style="display: none;">
+                <h2>📊 Assessment Results</h2>
+                
+                <div class="result-card" id="resultCard">
+                    <!-- Classification -->
+                    <div class="result-classification" id="resultClassification">
+                        <div class="classification-icon" id="classificationIcon"></div>
+                        <div class="classification-text">
+                            <h3 id="predictionLabel">Loading...</h3>
+                            <p id="riskLevel">Risk Level: --</p>
+                        </div>
+                    </div>
+
+                    <!-- Confidence Score -->
+                    <div class="result-confidence">
+                        <h4>Confidence Score</h4>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill" style="width: 0%"></div>
+                        </div>
+                        <p class="confidence-value" id="confidenceValue">0%</p>
+                    </div>
+
+                    <!-- Probability Distribution -->
+                    <div class="result-probabilities">
+                        <h4>Probability Distribution</h4>
+                        <div class="probability-item">
+                            <span class="prob-label benign">Benign</span>
+                            <div class="prob-bar">
+                                <div class="prob-fill benign" id="probBenignFill" style="width: 0%"></div>
+                            </div>
+                            <span class="prob-value" id="probBenignValue">0%</span>
+                        </div>
+                        <div class="probability-item">
+                            <span class="prob-label malignant">Malignant</span>
+                            <div class="prob-bar">
+                                <div class="prob-fill malignant" id="probMalignantFill" style="width: 0%"></div>
+                            </div>
+                            <span class="prob-value" id="probMalignantValue">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="result-recommendations" id="recommendations">
+                        <h4>📋 Recommendations</h4>
+                        <ul id="recommendationsList"></ul>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="result-actions">
+                    <button class="btn-secondary" onclick="resetAssessment()">New Assessment</button>
+                    <button class="btn-primary" onclick="printResults()">Print Results</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 BreastCare AI - For Educational Purposes Only</p>
+            <p>This tool uses machine learning trained on the Wisconsin Breast Cancer Dataset</p>
+        </footer>
+    </div>
+
+    <!-- Error Modal -->
+    <div class="modal" id="errorModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚠️ Error</h3>
+                <button class="modal-close" onclick="closeErrorModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage">An error occurred.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="closeErrorModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
