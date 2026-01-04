@@ -22,8 +22,6 @@ Breast Cancer Prediction System/
 ├── model/                   # Model files placeholder
 ├── Dockerfile               # Docker configuration
 ├── render.yaml              # Render deployment config
-├── railway.json             # Railway deployment config
-├── fly.toml                 # Fly.io deployment config
 └── README.md
 ```
 
@@ -63,19 +61,6 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at `http://localhost:8000`
-
-### Step 3: Open the Frontend
-
-Simply open `frontend/index.html` in a web browser, or serve it with a local server:
-
-```bash
-# Using Python
-cd frontend
-python -m http.server 3000
-
-# Or using Node.js
-npx serve frontend
-```
 
 ## 🔌 API Endpoints
 
@@ -152,48 +137,6 @@ The backend converts user-friendly inputs to the 30 features required by the mod
 - **Growth Rate** → `fractal_dimension_mean`, `smoothness_mean`
 - **Binary inputs** → Risk factor adjustments
 
-## 🚢 Deployment
-
-### Render
-
-1. Push code to GitHub
-2. Connect repository to Render
-3. Render will auto-detect `render.yaml` configuration
-4. Deploy!
-
-### Railway
-
-1. Push code to GitHub
-2. Create new project on Railway
-3. Connect repository
-4. Railway will use `railway.json` configuration
-
-### Fly.io
-
-```bash
-# Install flyctl
-curl -L https://fly.io/install.sh | sh
-
-# Login
-fly auth login
-
-# Deploy
-fly launch
-fly deploy
-```
-
-### Docker
-
-```bash
-# Build image
-docker build -t breast-cancer-prediction .
-
-# Run container
-docker run -p 8000:8000 breast-cancer-prediction
-```
-
-## 📋 API Response Example
-
 ```json
 {
   "prediction": "Benign",
@@ -217,18 +160,8 @@ docker run -p 8000:8000 breast-cancer-prediction
 
 - **Backend**: Python, FastAPI, scikit-learn, joblib
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla)
-- **ML Model**: Gradient Boosting Classifier
+- **ML Model**: Linear Regression
 - **Dataset**: Wisconsin Breast Cancer Dataset (sklearn)
-
-## 📈 Model Performance
-
-The trained model typically achieves:
-
-- **Accuracy**: ~96-98%
-- **F1 Score**: ~96-98%
-- **AUC-ROC**: ~99%
-
-_Actual performance may vary based on hyperparameter tuning._
 
 ## 📝 License
 
@@ -237,7 +170,3 @@ This project is for educational purposes as part of CSC415 AI Practicals coursew
 ## 👤 Author
 
 Michael Ebube - 400 Level AS - 2025/26
-
----
-
-Made with ❤️ for CSC415 AI Practicals
