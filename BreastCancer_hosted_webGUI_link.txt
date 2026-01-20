@@ -1,6 +1,6 @@
 Name: Ebube Michael Ifeanyichukwu 
 Matric Number: 22CG031850
-Machine Learning Algorithm Used: Linear Regression 
+Machine Learning Algorithm Used: Logistic Regression 
 Model persistence method used: Joblib
 Live URL of the hosted application: https://breast-cancer-detection-1-w4sq.onrender.com/
-GitHub repository link: https://github.com/michaelebube/Titanic_Survival_Predictor 
+GitHub repository link: https://github.com/michaelebube/Breast_Cancer_Detection
